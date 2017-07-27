@@ -1,5 +1,6 @@
 import com.worldstone.worldengine.trigger.Trigger;
 import com.worldstone.worldengine.trigger.TriggerController;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -9,7 +10,12 @@ public class TriggerTest {
 
     @Test
     public void testTriggers() {
-        Trigger trigger = new Trigger("test_event", "test_event");
+        Trigger trigger = new Trigger("test_event", "test_event") {
+            @Override
+            public void resolve(Map<String, Object> attributes) {
+                Assert.assertEquals(attributes.get("test_attribute"), "test_value");
+            }
+        };
         TriggerController.registerTrigger(trigger);
 
         Map<String, Object> triggerAttributes = new HashMap<>();

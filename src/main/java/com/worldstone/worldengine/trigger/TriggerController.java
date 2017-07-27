@@ -36,8 +36,12 @@ public class TriggerController {
             }
         }
         else {
-            LoggerFactory.getLogger(TriggerController.class).info("Event !" + eventName + " has no registered triggers.");
+            LoggerFactory.getLogger(TriggerController.class).warn("Triggered event !" + eventName + " has no registered triggers.");
         }
+    }
+
+    public static void triggerEvent(String eventName) {
+        TriggerController.triggerEvent(eventName, new HashMap<>());
     }
 
 }

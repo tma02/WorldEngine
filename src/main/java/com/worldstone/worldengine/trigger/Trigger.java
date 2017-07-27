@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
-public class Trigger {
+public abstract class Trigger {
 
     private String name;
     private String eventName;
@@ -22,9 +22,7 @@ public class Trigger {
         this.resolve(attributes);
     }
 
-    public void resolve(Map<String, Object> attributes) {
-
-    }
+    public abstract void resolve(Map<String, Object> attributes);
 
     public String getName() {
         return this.name;

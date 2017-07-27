@@ -35,7 +35,9 @@ public class LoginListener implements SocketIOListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        buffer.release();
+        finally {
+            buffer.release();
+        }
     }
 
     public void onDisconnect(Session session) {
