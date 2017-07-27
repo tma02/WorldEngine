@@ -39,6 +39,10 @@ public class Game extends Thread {
         this.shutdownFlag = true;
     }
 
+    public void enqueuePlayerAction(PlayerAction action) {
+        this.actionQueue.offer(action);
+    }
+
     @Override
     public void run() {
         for (;;) {
@@ -47,9 +51,10 @@ public class Game extends Thread {
             long tickEndTime = System.currentTimeMillis();
 
             // Ticks should occur in 500ms intervals
-            if (tickEndTime - tickStartTime < 500) {
-                LoggerFactory.getLogger(this.getClass()).info("Game tick finished in " + (tickEndTime - tickStartTime) + "ms.");
-                long timeToSleep = 500 - (System.currentTimeMillis() - tickStartTime);
+            long delta = (tickEndTime - tickStartTime);
+            if (delta < 500) {
+                LoggerFactory.getLogger(this.getClass()).info("Game tick finished in " + delta + "ms (Time Utilization: " + (delta / 5.f) + "%).");
+                long timeToSleep = 500 - delta;
                 try {
                     Thread.sleep(timeToSleep);
                 } catch (InterruptedException e) {
@@ -57,7 +62,7 @@ public class Game extends Thread {
                 }
             }
             else {
-                LoggerFactory.getLogger(this.getClass()).warn("Game tick took longer than 500ms (" + (tickEndTime - tickStartTime) + ")!");
+                LoggerFactory.getLogger(this.getClass()).warn("Game tick took longer than 500ms (" + delta + ")!");
             }
             if (this.shutdownFlag) {
                 break;

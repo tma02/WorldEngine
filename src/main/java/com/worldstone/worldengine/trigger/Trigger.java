@@ -16,9 +16,9 @@ public abstract class Trigger {
     }
 
     public void onTrigger(Map<String, Object> attributes) {
-        LoggerFactory.getLogger(this.getClass()).info("#" + this.name + "!" + this.eventName + " triggered with attributes:");
+        LoggerFactory.getLogger(this.getClass()).debug("#" + this.name + "!" + this.eventName + " triggered with attributes:");
         String attributesJson = new Gson().toJson(attributes);
-        LoggerFactory.getLogger(this.getClass()).info(attributesJson);
+        LoggerFactory.getLogger(this.getClass()).debug(attributesJson);
         this.resolve(attributes);
     }
 
