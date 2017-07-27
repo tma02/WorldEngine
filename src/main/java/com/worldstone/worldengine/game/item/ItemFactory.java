@@ -1,6 +1,13 @@
 package com.worldstone.worldengine.game.item;
 
+import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ItemFactory {
+
+    private static Map<String, Map<String, Object>> ITEM_ATTRIBUTE_PRESETS = new HashMap<>();
 
     enum ItemType {
         BORING,
@@ -24,6 +31,14 @@ public class ItemFactory {
                 break;
         }
         return item;
+    }
+
+    public static void registerPreset(String presetName, Map<String, Object> attributePreset) {
+        if (ItemFactory.ITEM_ATTRIBUTE_PRESETS.containsKey("presetName")) {
+            LoggerFactory.getLogger(ItemFactory.class).warn("Overriding item attribute preset for #" + presetName + ".");
+        }
+        ItemFactory.ITEM_ATTRIBUTE_PRESETS.put(presetName, attributePreset);
+        LoggerFactory.getLogger(ItemFactory.class).info("Registered item attribute preset for #" + presetName + ".");
     }
 
 }
