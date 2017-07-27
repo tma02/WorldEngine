@@ -33,6 +33,17 @@ public class ItemFactory {
         return item;
     }
 
+    public static Item getItem(ItemType type, String presetName) {
+        Item item = ItemFactory.getItem(type);
+        if (ItemFactory.ITEM_ATTRIBUTE_PRESETS.containsKey(presetName)) {
+            Map<String, Object> preset = ItemFactory.ITEM_ATTRIBUTE_PRESETS.get(presetName);
+            for (String attributeKey : preset.keySet()) {
+                item.getAttributes().put(attributeKey, preset.get(attributeKey));
+            }
+        }
+        return item;
+    }
+
     public static void registerPreset(String presetName, Map<String, Object> attributePreset) {
         if (ItemFactory.ITEM_ATTRIBUTE_PRESETS.containsKey("presetName")) {
             LoggerFactory.getLogger(ItemFactory.class).warn("Overriding item attribute preset for #" + presetName + ".");
