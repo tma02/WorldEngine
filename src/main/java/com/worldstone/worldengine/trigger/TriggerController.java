@@ -28,6 +28,32 @@ public class TriggerController {
         return true;
     }
 
+    /**
+     * Attempts to remove a registered trigger in the controller
+     * @param trigger Trigger to remove
+     * @return false if a trigger with the same name does not exist, true if it was removed
+     */
+    public static boolean unregisterTrigger(Trigger trigger) {
+        if (TriggerController.TRIGGER_MAP.containsKey(trigger.getEventName())) {
+            List<Trigger> eventTriggers = TriggerController.TRIGGER_MAP.get(trigger.getEventName());
+            return eventTriggers.removeIf(eventTrigger -> eventTrigger.getName().equals(trigger.getName()));
+        }
+        return false;
+    }
+
+    /**
+     * Attempts to remove a registered trigger in the controller
+     * @param triggerName name of the Trigger to remove
+     * @param eventName event name of the Trigger to remove
+     * @return false if a trigger with the same name does not exist, true if it was removed
+     */
+    public static boolean unregisterTrigger(String triggerName, String eventName) {
+        return TriggerController.unregisterTrigger(new Trigger(triggerName, eventName) {
+            @Override
+            public void resolve(Map<String, Object> attributes) { }
+        });
+    }
+
     public static void triggerEvent(String eventName, Map<String, Object> attributes) {
         if (TriggerController.TRIGGER_MAP.containsKey(eventName)) {
             List<Trigger> eventTriggers = TriggerController.TRIGGER_MAP.get(eventName);

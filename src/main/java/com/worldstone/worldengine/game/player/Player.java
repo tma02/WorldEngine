@@ -16,4 +16,8 @@ public class Player {
         this.skillExpMap = new HashMap<>();
     }
 
+    public String getArea() {
+        return this.area;
+    }
+
 }
