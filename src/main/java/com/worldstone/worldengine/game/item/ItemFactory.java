@@ -17,6 +17,7 @@ public class ItemFactory {
                 item.getAttributes().put("durability", 0);
             case BORING:
                 item.getAttributes().put("name", "");
+                item.getAttributes().put("display_name", "");
                 item.getAttributes().put("description", "");
                 item.getAttributes().put("type", type.name());
                 item.getAttributes().put("can_trade", false);
