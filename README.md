@@ -8,7 +8,7 @@ Ideally, all game logic is written in JavaScript scripts to be interpreted at la
 The game thread handles timing of game ticks and is in charge of triggering the ```game_tick``` event. Ticks are timed to occur every 500±1ms. At the start of each tick, the game thread will attempt to execute and clear the action queue, then trigger the ```game_tick``` event. Game logic should ideally populate the action queue instead of executing the action directly. 
 
 **```game_tick``` Trigger Hook Example**
-```JavaScript
+```javascript
 // Writing your own Trigger
 var Trigger = Java.type('com.worldstone.worldengine.trigger.Trigger');
 var MyGameTickTrigger = Java.extend(Trigger, {
@@ -26,7 +26,7 @@ TriggerController.registerTrigger(new MyGameTickTrigger('my_game_tick_trigger', 
 A unique object with attributes that represents an object that can interact with inventories, character equipment, and other ItemContainers.
 
 **Item Script Usage Example**
-```JavaScript
+```javascript
 // Registering an attribute preset
 var HashMap = Java.type('java.util.HashMap');
 var ItemFactory = Java.type('com.worldstone.worldengine.game.item.ItemFactory');
@@ -44,7 +44,7 @@ var myItemInstance = ItemFactory.getItem(ItemType.BORING, 'my_item_preset');
 Triggers are used to pass events between WorldEngine and scripts. There are some events that are triggered by WorldEngine itself, but events can also be triggered by scripts.
 
 **Trigger Script Usage Example**
-```JavaScript
+```javascript
 // Writing your own Trigger
 var Trigger = Java.type('com.worldstone.worldengine.trigger.Trigger');
 var MyTrigger = Java.extend(Trigger, {
