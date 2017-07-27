@@ -9,7 +9,7 @@ public class ItemFactory {
 
     private static Map<String, Map<String, Object>> ITEM_ATTRIBUTE_PRESETS = new HashMap<>();
 
-    enum ItemType {
+    public enum ItemType {
         BORING,
         WEARABLE,
         CONSUMABLE
