@@ -19,6 +19,11 @@ public class Trigger {
         LoggerFactory.getLogger(this.getClass()).info("#" + this.name + "!" + this.eventName + " triggered with attributes:");
         String attributesJson = new Gson().toJson(attributes);
         LoggerFactory.getLogger(this.getClass()).info(attributesJson);
+        this.resolve(attributes);
+    }
+
+    public void resolve(Map<String, Object> attributes) {
+
     }
 
     public String getName() {
