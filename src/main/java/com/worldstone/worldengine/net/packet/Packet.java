@@ -24,6 +24,7 @@ public class Packet {
         // Read buffer to strings
         ByteBufInputStream stream = new ByteBufInputStream(buffer);
         String packetString = stream.readUTF();
+
         // Deserialize string to JSON object
         Gson gson = new Gson();
         Packet packet = gson.fromJson(packetString, Packet.class);

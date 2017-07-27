@@ -17,7 +17,8 @@ public class WorldEngine {
     }
 
     public WorldEngine() {
-        LoggerFactory.getLogger(this.getClass()).info("Starting WorldEngine " + getClass().getPackage().getImplementationVersion() + "...");
+        LoggerFactory.getLogger(this.getClass()).info("WorldEngine " + getClass().getPackage().getImplementationVersion());
+        LoggerFactory.getLogger(this.getClass()).info("Starting game thread...");
         this.game = new Game();
         this.game.start();
         LoggerFactory.getLogger(this.getClass()).info("Starting Login server...");

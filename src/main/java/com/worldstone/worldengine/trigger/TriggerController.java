@@ -40,6 +40,10 @@ public class TriggerController {
         }
     }
 
+    /**
+     * Triggers an event with an empty attribute map
+     * @param eventName name of the event to trigger
+     */
     public static void triggerEvent(String eventName) {
         TriggerController.triggerEvent(eventName, new HashMap<>());
     }

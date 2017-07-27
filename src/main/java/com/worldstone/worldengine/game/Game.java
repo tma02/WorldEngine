@@ -45,6 +45,8 @@ public class Game extends Thread {
             long tickStartTime = System.currentTimeMillis();
             this.tick();
             long tickEndTime = System.currentTimeMillis();
+
+            // Ticks should occur in 500ms intervals
             if (tickEndTime - tickStartTime < 500) {
                 LoggerFactory.getLogger(this.getClass()).info("Game tick finished in " + (tickEndTime - tickStartTime) + "ms.");
                 long timeToSleep = 500 - (System.currentTimeMillis() - tickStartTime);
@@ -61,6 +63,7 @@ public class Game extends Thread {
                 break;
             }
         }
+        LoggerFactory.getLogger(this.getClass()).info("Game thread shut down.");
     }
 
 }

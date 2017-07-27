@@ -5,8 +5,6 @@ import java.util.Map;
 
 public class Skill {
 
-    private static Map<String, Skill> SKILL_MAP = new HashMap<>();
-
     private String name;
     private String displayName;
     private String description;
@@ -27,10 +25,6 @@ public class Skill {
 
     public String getDescription() {
         return this.description;
-    }
-
-    public static void registerSkill(Skill skill) {
-        Skill.SKILL_MAP.put(skill.name, skill);
     }
 
 }
