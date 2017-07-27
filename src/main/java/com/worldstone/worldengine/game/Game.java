@@ -46,13 +46,13 @@ public class Game extends Thread {
             this.tick();
             long tickEndTime = System.currentTimeMillis();
             if (tickEndTime - tickStartTime < 500) {
+                LoggerFactory.getLogger(this.getClass()).info("Game tick finished in " + (tickEndTime - tickStartTime) + "ms.");
                 long timeToSleep = 500 - (System.currentTimeMillis() - tickStartTime);
                 try {
                     Thread.sleep(timeToSleep);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
-                LoggerFactory.getLogger(this.getClass()).info("Game tick finished in " + (tickEndTime - tickStartTime) + "ms.");
             }
             else {
                 LoggerFactory.getLogger(this.getClass()).warn("Game tick took longer than 500ms (" + (tickEndTime - tickStartTime) + ")!");
