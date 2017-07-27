@@ -7,7 +7,7 @@ Ideally, all game logic is written in JavaScript scripts to be interpreted at la
 ### Game Ticks
 The game thread handles timing of game ticks and is in charge of triggering the ```game_tick``` event. Ticks are timed to occur every 500±1ms. At the start of each tick, the game thread will attempt to execute and clear the action queue, then trigger the ```game_tick``` event. Game logic should ideally populate the action queue instead of executing the action directly. 
 
-Scripts can hook the ```game_tick``` event by registering a Trigger.
+**```game_tick``` Trigger Hook Example**
 ```JavaScript
 // Writing your own Trigger
 var Trigger = Java.type('com.worldstone.worldengine.trigger.Trigger');
