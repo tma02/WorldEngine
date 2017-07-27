@@ -19,7 +19,7 @@ public class Game extends Thread {
         this.world = new World("main_world");
         this.actionQueue = new PriorityQueue<>();
         this.shutdownFlag = false;
-        this.setName("Game");
+        this.setName("game");
     }
 
     public void tick() {
