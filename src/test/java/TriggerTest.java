@@ -21,6 +21,8 @@ public class TriggerTest {
         Map<String, Object> triggerAttributes = new HashMap<>();
         triggerAttributes.put("test_attribute", "test_value");
         TriggerController.triggerEvent("test_event", triggerAttributes);
+        TriggerController.unregisterTrigger(trigger);
+        TriggerController.triggerEvent("test_event", triggerAttributes);
     }
 
 }

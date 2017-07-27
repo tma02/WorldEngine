@@ -46,7 +46,13 @@ public class TriggerController {
     public static boolean unregisterTrigger(String triggerName, String eventName) {
         if (TriggerController.TRIGGER_MAP.containsKey(eventName)) {
             List<Trigger> eventTriggers = TriggerController.TRIGGER_MAP.get(eventName);
-            return eventTriggers.removeIf(eventTrigger -> eventTrigger.getName().equals(triggerName));
+            if (eventTriggers.removeIf(eventTrigger -> eventTrigger.getName().equals(triggerName))) {
+                LoggerFactory.getLogger(TriggerController.class).info("#" + triggerName + " unregistered from event !" + eventName + ".");
+                return true;
+            }
+            else {
+                return false;
+            }
         }
         return false;
     }
