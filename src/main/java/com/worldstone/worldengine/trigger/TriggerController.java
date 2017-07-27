@@ -20,9 +20,11 @@ public class TriggerController {
         TriggerController.TRIGGER_MAP.putIfAbsent(trigger.getEventName(), new ArrayList<>());
         List<Trigger> eventTriggers = TriggerController.TRIGGER_MAP.get(trigger.getEventName());
         if (eventTriggers.contains(trigger)) {
+            LoggerFactory.getLogger(TriggerController.class).warn("#" + trigger.getName() + " already registered.");
             return false;
         }
         eventTriggers.add(trigger);
+        LoggerFactory.getLogger(TriggerController.class).info("#" + trigger.getName() + " registered to event !" + trigger.getEventName() + ".");
         return true;
     }
 

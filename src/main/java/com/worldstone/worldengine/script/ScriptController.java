@@ -5,6 +5,6 @@ import javax.script.ScriptEngineManager;
 
 public class ScriptController {
 
-    private static ScriptEngine scriptEngine = new ScriptEngineManager().getEngineByName("nashorn");
+    private static ScriptEngine SCRIPT_ENGINE = new ScriptEngineManager().getEngineByName("nashorn");
 
 }

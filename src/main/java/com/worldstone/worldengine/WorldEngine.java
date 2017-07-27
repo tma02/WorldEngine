@@ -15,7 +15,9 @@ public class WorldEngine {
     public WorldEngine() {
         LoggerFactory.getLogger(this.getClass()).info("Starting WorldEngine " + getClass().getPackage().getImplementationVersion() + "...");
         LoggerFactory.getLogger(this.getClass()).info("Starting Login server...");
-        new SocketServer(5000, new LoginListener()).start();
+        LoginListener loginListener = new LoginListener();
+        loginListener.registerPacketActions();
+        new SocketServer(5000, loginListener).start();
     }
 
 }
