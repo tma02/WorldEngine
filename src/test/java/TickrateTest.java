@@ -25,7 +25,7 @@ public class TickrateTest {
             TriggerController.registerTrigger(new Trigger("test_trigger" + i, "game_tick") {
                 @Override
                 public void resolve(Map<String, Object> attributes) {
-                    game.enqueuePlayerAction(new PlayerAction(null) {
+                    game.offerPlayerAction(new PlayerAction(null, 1) {
                         @Override
                         public void run() {
                             System.out.println("test");

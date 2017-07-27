@@ -4,30 +4,41 @@ import com.worldstone.worldengine.game.world.World;
 import com.worldstone.worldengine.trigger.TriggerController;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
+import java.util.concurrent.PriorityBlockingQueue;
 
 public class Game extends Thread {
 
     private World world;
     private Queue<PlayerAction> actionQueue;
+    private List<PlayerAction> futureActions;
     private boolean shutdownFlag;
 
     public Game() {
         this.world = new World("main_world");
-        this.actionQueue = new PriorityQueue<>();
+        this.actionQueue = new PriorityBlockingQueue<>();
+        this.futureActions = new ArrayList<>();
         this.shutdownFlag = false;
         this.setName("game");
     }
 
     public void tick() {
         // Work through the action queue
-        while (!actionQueue.isEmpty()) {
-            PlayerAction action = actionQueue.poll();
-            action.run();
+        while (!this.actionQueue.isEmpty()) {
+            PlayerAction action = this.actionQueue.poll();
+            if (action != null) {
+                action.run();
+            }
         }
+
+        // Populate action queue with actions
+        for (PlayerAction action : this.futureActions) {
+            action.tick();
+            if (action.getDelayTicks() <= 0) {
+                this.actionQueue.offer(action);
+            }
+        }
+        this.futureActions.removeIf(action -> action.getDelayTicks() <= 0);
 
         // Trigger the game tick event
         Map<String, Object> eventAttributes = new HashMap<>();
@@ -39,8 +50,13 @@ public class Game extends Thread {
         this.shutdownFlag = true;
     }
 
-    public void enqueuePlayerAction(PlayerAction action) {
-        this.actionQueue.offer(action);
+    public void offerPlayerAction(PlayerAction action) {
+        if (action.getDelayTicks() <= 0) {
+            this.actionQueue.offer(action);
+        }
+        else {
+            this.futureActions.add(action);
+        }
     }
 
     @Override
@@ -52,9 +68,9 @@ public class Game extends Thread {
 
             // Ticks should occur in 500ms intervals
             long delta = (tickEndTime - tickStartTime);
+            LoggerFactory.getLogger(this.getClass()).info("Game tick finished in " + delta + "ms (Time Utilization: " + (delta / 5.f) + "%).");
             if (delta < 500) {
-                LoggerFactory.getLogger(this.getClass()).info("Game tick finished in " + delta + "ms (Time Utilization: " + (delta / 5.f) + "%).");
-                long timeToSleep = 500 - delta;
+                long timeToSleep = 500 - (System.currentTimeMillis() % 500);
                 try {
                     Thread.sleep(timeToSleep);
                 } catch (InterruptedException e) {
