@@ -22,7 +22,7 @@ public class SocketServer {
         server = SocketIOServer.newInstance(this.port);
         server.setListener(listener);
         server.start();
-        SocketServer.LOGGER.info(listener.getClass().getSimpleName() + " started on port " + this.port);
+        SocketServer.LOGGER.info(listener.getClass().getSimpleName() + " started on port " + this.port + ".");
     }
 
 }

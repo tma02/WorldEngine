@@ -44,10 +44,10 @@ public class LoginListener implements SocketIOListener {
 
     public void registerPacketAction(PacketAction packetAction) {
         if (this.packetActions.containsKey(packetAction.getPacketName())) {
-            LoggerFactory.getLogger(this.getClass()).warn("Overriding PacketAction for #" + packetAction.getPacketName());
+            LoggerFactory.getLogger(this.getClass()).warn("Overriding PacketAction for #" + packetAction.getPacketName() + ".");
         }
         this.packetActions.putIfAbsent(packetAction.getPacketName(), packetAction);
-        LoggerFactory.getLogger(this.getClass()).info("Registered PacketAction for #" + packetAction.getPacketName());
+        LoggerFactory.getLogger(this.getClass()).info("Registered PacketAction for #" + packetAction.getPacketName() + ".");
     }
 
     public void registerPacketActions() {
