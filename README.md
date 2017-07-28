@@ -1,5 +1,5 @@
 # WorldEngine
-Highly configurable Socket.IO MMO game engine server suite. WorldEngine uses PostgreSQL for persistent storage. All game entities, objects, and events can and should be configured and handled by scripts since WorldEngine has been designed to contain as little game logic in itself as possible.
+Highly configurable Socket.IO MMO game engine server suite. WorldEngine uses PostgreSQL for persistent storage. WorldEngine has been designed to contain as little game logic in itself as possible. All game entities, objects, and events should be configured and handled by scripts.
 
 ## Scripting
 Ideally, all game logic is written in JavaScript scripts to be interpreted at launch. Scripts can be used to make and register: item attribute presets, skills, packet actions, etc. Scripts can also hook on to event triggers to handle game events.
