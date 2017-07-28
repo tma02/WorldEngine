@@ -32,6 +32,7 @@ public class Game extends Thread {
         }
 
         // Populate action queue with actions
+        this.futureActions.removeIf(Objects::isNull);
         for (PlayerAction action : this.futureActions) {
             action.tick();
             if (action.getDelayTicks() <= 0) {
