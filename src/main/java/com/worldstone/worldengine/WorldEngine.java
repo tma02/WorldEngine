@@ -20,20 +20,25 @@ public class WorldEngine {
         WorldEngine.INSTANCE.init();
     }
 
-    public WorldEngine() { }
+    public WorldEngine() {
+        this.game = new Game();
+
+        LoginListener loginListener = new LoginListener();
+        this.loginServer = new SocketServer(5000, loginListener);
+    }
 
     public void init() {
         LoggerFactory.getLogger(this.getClass()).info("WorldEngine " + getClass().getPackage().getImplementationVersion());
-        LoggerFactory.getLogger(this.getClass()).info("Starting game thread...");
-        this.game = new Game();
-        this.game.start();
-        LoggerFactory.getLogger(this.getClass()).info("Starting Login server...");
-        LoginListener loginListener = new LoginListener();
-        loginListener.registerPacketActions();
-        this.loginServer = new SocketServer(5000, loginListener);
-        this.loginServer.start();
 
+        LoggerFactory.getLogger(this.getClass()).info("Running scripts...");
         ScriptController.runScripts(new File("scripts/"));
+
+        LoggerFactory.getLogger(this.getClass()).info("Starting game thread...");
+        this.game.start();
+
+        LoggerFactory.getLogger(this.getClass()).info("Starting Login server...");
+        ((LoginListener) this.loginServer.getListener()).registerPacketActions();
+        this.loginServer.start();
     }
 
     public Game getGame() {

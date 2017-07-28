@@ -1,5 +1,7 @@
 package com.worldstone.worldengine.script;
 
+import org.slf4j.LoggerFactory;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -9,17 +11,17 @@ import java.io.FileReader;
 
 public class ScriptController {
 
-    private static ScriptEngine SCRIPT_ENGINE = new ScriptEngineManager().getEngineByName("nashorn");
+    public static ScriptEngineManager SCRIPT_ENGINE_MANAGER = new ScriptEngineManager();
 
     public static void runScripts(File scriptDir) {
         for (final File fileEntry : scriptDir.listFiles()) {
             if (fileEntry.isDirectory()) {
                 ScriptController.runScripts(fileEntry);
             } else {
-                System.out.println(fileEntry.getName());
-                if (fileEntry.getName().endsWith(".js")) {
+                if (!fileEntry.getName().startsWith("_") && fileEntry.getName().endsWith(".js")) {
+                    LoggerFactory.getLogger(ScriptController.class).info("Running #" + fileEntry.getName());
                     try {
-                        ScriptController.SCRIPT_ENGINE.eval(new FileReader(fileEntry));
+                        ScriptController.SCRIPT_ENGINE_MANAGER.getEngineByName("nashorn").eval(new FileReader(fileEntry));
                     } catch (ScriptException | FileNotFoundException e) {
                         e.printStackTrace();
                     }

@@ -25,4 +25,7 @@ public class SocketServer {
         SocketServer.LOGGER.info(listener.getClass().getSimpleName() + " started on port " + this.port + ".");
     }
 
+    public SocketIOListener getListener() {
+        return listener;
+    }
 }
