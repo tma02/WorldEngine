@@ -52,8 +52,8 @@ public class WorldEngine {
         String host = (String) this.config.getDatabase().get("host");
         int port = (int) (double) this.config.getDatabase().get("port");
         String database = (String) this.config.getDatabase().get("database");
-        String username = (String) this.config.getDatabase().get("host");
-        String password = (String) this.config.getDatabase().get("host");
+        String username = (String) this.config.getDatabase().get("username");
+        String password = (String) this.config.getDatabase().get("password");
         this.database = new Database(host, port, database, username, password);
         if (!this.database.testConnection()) {
             System.exit(1);

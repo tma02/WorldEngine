@@ -13,7 +13,7 @@ public class Database {
     private String password;
 
     public Database(String host, int port, String database, String username, String password) {
-        this.jdbcURL = String.format("jdbc:postgresql://%s:%d/%s", host, port, database);
+        this.jdbcURL = String.format("jdbc:postgresql://%s:%d/%s?sslmode=require", host, port, database);
         this.username = username;
         this.password = password;
     }
