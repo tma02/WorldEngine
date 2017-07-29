@@ -1,8 +1,10 @@
 package com.worldstone.worldengine.database;
 
-import com.worldstone.worldengine.game.player.Player;
+import com.google.gson.Gson;
+import com.worldstone.worldengine.game.player.PlayerCharacter;
 
 import java.sql.*;
+import java.util.List;
 
 public class Database {
 
@@ -16,21 +18,42 @@ public class Database {
         this.password = password;
     }
 
-    public Player loadPlayer(String username) throws SQLException {
+    public boolean testConnection() {
+        try {
+            Connection connection = DriverManager.getConnection(this.jdbcURL, this.username, this.password);
+            connection.close();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public List<String> loadCharacterList(String username) throws SQLException {
         Connection connection = DriverManager.getConnection(this.jdbcURL, this.username, this.password);
         connection.setAutoCommit(false);
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM `players` WHERE 'username' = ?;");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM `users` WHERE 'username' = ?;");
         statement.setString(1, username);
         ResultSet results = statement.executeQuery();
+        results.first();
+        connection.close();
+        return new Gson().fromJson(results.getString("character_list"), List.class);
+    }
 
-        Player player = new Player();
-        results.getString("username");
+    public PlayerCharacter loadPlayerCharacter(String displayName) throws SQLException {
+        Connection connection = DriverManager.getConnection(this.jdbcURL, this.username, this.password);
+        connection.setAutoCommit(false);
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM `characters` WHERE 'display_name' = ?;");
+        statement.setString(1, displayName);
+        ResultSet results = statement.executeQuery();
+        results.first();
+        connection.close();
+
+        PlayerCharacter playerCharacter = new PlayerCharacter();
         results.getString("display_name");
-        results.getString("email");
         results.getString("inventory");
         results.getString("area");
         results.getString("skill_exp_map");
-        return player;
+        return playerCharacter;
     }
 
 }

@@ -1,6 +1,6 @@
 import com.worldstone.worldengine.game.Game;
-import com.worldstone.worldengine.game.PlayerAction;
-import com.worldstone.worldengine.game.player.Player;
+import com.worldstone.worldengine.game.player.PlayerAction;
+import com.worldstone.worldengine.game.player.PlayerCharacter;
 import com.worldstone.worldengine.trigger.Trigger;
 import com.worldstone.worldengine.trigger.TriggerController;
 import org.junit.Assert;
@@ -23,15 +23,15 @@ public class TickrateTest {
                 this_.ticksRan++;
             }
         });
-        Player player = new Player();
+        PlayerCharacter playerCharacter = new PlayerCharacter();
         for (int i = 0; i < 1000; i++) {
             TriggerController.registerTrigger(new Trigger("test_trigger" + i, "game_tick") {
                 @Override
                 public void resolve(Map<String, Object> attributes) {
-                    game.offerPlayerAction(new PlayerAction(player, 1) {
+                    game.offerPlayerAction(new PlayerAction(playerCharacter, 1) {
                         @Override
                         public void run() {
-                            Assert.assertEquals(this.getPlayer().getArea(), "nowhere");
+                            Assert.assertEquals(this.getPlayerCharacter().getArea(), "nowhere");
                         }
                     });
                 }

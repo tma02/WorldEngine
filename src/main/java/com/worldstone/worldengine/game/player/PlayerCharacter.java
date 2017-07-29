@@ -4,18 +4,16 @@ import com.worldstone.worldengine.game.item.ItemContainer;
 
 import java.util.HashMap;
 
-public class Player {
+public class PlayerCharacter {
 
     private ItemContainer inventory;
     private String area;
-    private String username;
     private String displayName;
     private HashMap<String, Integer> skillExpMap;
 
-    public Player() {
+    public PlayerCharacter() {
         this.inventory = new ItemContainer();
         this.area = "nowhere";
-        this.username = "";
         this.displayName = "...";
         this.skillExpMap = new HashMap<>();
     }
@@ -24,4 +22,15 @@ public class Player {
         return this.area;
     }
 
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public HashMap<String, Integer> getSkillExpMap() {
+        return skillExpMap;
+    }
 }

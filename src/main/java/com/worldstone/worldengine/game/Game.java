@@ -1,5 +1,6 @@
 package com.worldstone.worldengine.game;
 
+import com.worldstone.worldengine.game.player.PlayerAction;
 import com.worldstone.worldengine.game.world.World;
 import com.worldstone.worldengine.trigger.TriggerController;
 import org.slf4j.LoggerFactory;
