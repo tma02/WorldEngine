@@ -1,6 +1,6 @@
 package com.worldstone.worldengine.game;
 
-import com.worldstone.worldengine.game.player.PlayerAction;
+import com.worldstone.worldengine.game.player.PlayerCharacter;
 import com.worldstone.worldengine.game.world.World;
 import com.worldstone.worldengine.trigger.TriggerController;
 import org.slf4j.LoggerFactory;
@@ -11,12 +11,14 @@ import java.util.concurrent.PriorityBlockingQueue;
 public class Game extends Thread {
 
     private World world;
-    private Queue<PlayerAction> actionQueue;
-    private List<PlayerAction> futureActions;
+    private List<PlayerCharacter> players;
+    private Queue<Action> actionQueue;
+    private List<Action> futureActions;
     private boolean shutdownFlag;
 
     public Game() {
         this.world = new World("main_world");
+        this.players = new ArrayList<>();
         this.actionQueue = new PriorityBlockingQueue<>();
         this.futureActions = new ArrayList<>();
         this.shutdownFlag = false;
@@ -26,7 +28,7 @@ public class Game extends Thread {
     public void tick() {
         // Work through the action queue
         while (!this.actionQueue.isEmpty()) {
-            PlayerAction action = this.actionQueue.poll();
+            Action action = this.actionQueue.poll();
             if (action != null) {
                 action.run();
             }
@@ -34,7 +36,7 @@ public class Game extends Thread {
 
         // Populate action queue with actions
         this.futureActions.removeIf(Objects::isNull);
-        for (PlayerAction action : this.futureActions) {
+        for (Action action : this.futureActions) {
             action.tick();
             if (action.getDelayTicks() <= 0) {
                 this.actionQueue.offer(action);
@@ -52,7 +54,7 @@ public class Game extends Thread {
         this.shutdownFlag = true;
     }
 
-    public void offerPlayerAction(PlayerAction action) {
+    public void offerAction(Action action) {
         if (action.getDelayTicks() <= 0) {
             this.actionQueue.offer(action);
         }

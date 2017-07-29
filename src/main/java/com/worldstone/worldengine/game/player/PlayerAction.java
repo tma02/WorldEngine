@@ -1,13 +1,14 @@
 package com.worldstone.worldengine.game.player;
 
-public abstract class PlayerAction implements Runnable, Comparable<PlayerAction> {
+import com.worldstone.worldengine.game.Action;
+
+public abstract class PlayerAction extends Action {
 
     private PlayerCharacter playerCharacter;
-    private int delayTicks;
 
     public PlayerAction(PlayerCharacter playerCharacter, int delayTicks) {
+        super(delayTicks);
         this.playerCharacter = playerCharacter;
-        this.delayTicks = delayTicks;
     }
 
     public PlayerAction(PlayerCharacter playerCharacter) {
@@ -16,19 +17,6 @@ public abstract class PlayerAction implements Runnable, Comparable<PlayerAction>
 
     public PlayerCharacter getPlayerCharacter() {
         return this.playerCharacter;
-    }
-
-    public int getDelayTicks() {
-        return this.delayTicks;
-    }
-
-    public void tick() {
-        this.delayTicks--;
-    }
-
-    @Override
-    public int compareTo(PlayerAction other) {
-        return -1;
     }
 
 }

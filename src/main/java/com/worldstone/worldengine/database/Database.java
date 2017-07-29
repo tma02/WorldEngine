@@ -52,7 +52,7 @@ public class Database {
         }
         connection.close();
 
-        PlayerCharacter playerCharacter = new PlayerCharacter();
+        PlayerCharacter playerCharacter = new PlayerCharacter(displayName);
         results.getString("display_name");
         results.getString("inventory");
         results.getString("area");

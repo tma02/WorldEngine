@@ -15,7 +15,7 @@ public class World {
         this.name = name;
         this.areaMap = new HashMap<>();
         final World this_ = this;
-        TriggerController.registerTrigger(new Trigger("world_trigger", "game_tick") {
+        TriggerController.registerTrigger(new Trigger("world_tick_trigger", "game_tick") {
             @Override
             public void resolve(Map<String, Object> attributes) {
                 this_.tick();

@@ -1,3 +1,4 @@
+import com.worldstone.worldengine.game.Action;
 import com.worldstone.worldengine.game.Game;
 import com.worldstone.worldengine.game.player.PlayerAction;
 import com.worldstone.worldengine.game.player.PlayerCharacter;
@@ -23,16 +24,13 @@ public class TickrateTest {
                 this_.ticksRan++;
             }
         });
-        PlayerCharacter playerCharacter = new PlayerCharacter();
         for (int i = 0; i < 1000; i++) {
             TriggerController.registerTrigger(new Trigger("test_trigger" + i, "game_tick") {
                 @Override
                 public void resolve(Map<String, Object> attributes) {
-                    game.offerPlayerAction(new PlayerAction(playerCharacter, 1) {
+                    game.offerAction(new Action(1) {
                         @Override
-                        public void run() {
-                            Assert.assertEquals(this.getPlayerCharacter().getArea(), "nowhere");
-                        }
+                        public void run() { }
                     });
                 }
             });
