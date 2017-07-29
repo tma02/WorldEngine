@@ -1,5 +1,6 @@
 package com.worldstone.worldengine.game.player;
 
+import com.worldstone.worldengine.database.User;
 import com.worldstone.worldengine.game.item.ItemContainer;
 import com.worldstone.worldengine.trigger.Trigger;
 import com.worldstone.worldengine.trigger.TriggerController;
@@ -12,33 +13,38 @@ import java.util.Map;
 public class PlayerCharacter {
 
     private ItemContainer inventory;
+    private User user;
     private String area;
     private String displayName;
     private String encodedDisplayName;
     private HashMap<String, Integer> skillExpMap;
     private PlayerAction nextAction;
     private boolean actionRanThisTick;
+    private Trigger tickTrigger;
 
-    public PlayerCharacter(String displayName) {
-        this.inventory = new ItemContainer();
-        this.area = "nowhere";
+    public PlayerCharacter(User user, String displayName) {
+        this.user = user;
         this.displayName = displayName;
         try {
             this.encodedDisplayName = URLEncoder.encode(displayName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
+        this.inventory = new ItemContainer();
+        this.area = "nowhere";
         this.skillExpMap = new HashMap<>();
         this.nextAction = null;
         this.actionRanThisTick = false;
 
         final PlayerCharacter this_ = this;
-        TriggerController.registerTrigger(new Trigger("player_tick_trigger#" + this.encodedDisplayName, "game_tick") {
+        this.tickTrigger = new Trigger("player_tick_trigger#" + this.user.getEmail(), "game_tick") {
             @Override
             public void resolve(Map<String, Object> attributes) {
                 this_.tick();
             }
-        });
+        };
+        TriggerController.registerTrigger(this.tickTrigger);
     }
 
     public void tick() {
@@ -54,6 +60,10 @@ public class PlayerCharacter {
                 this.nextAction.tick();
             }
         }
+    }
+
+    public void finish() {
+        TriggerController.unregisterTrigger(this.tickTrigger);
     }
 
     public String getArea() {

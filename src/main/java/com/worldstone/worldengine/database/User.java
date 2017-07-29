@@ -5,8 +5,17 @@ import com.worldstone.worldengine.WorldEngine;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 public class User {
+
+    private String email;
+    private List<String> characterList;
+
+    public User(String email, List<String> characterList) {
+        this.email = email;
+        this.characterList = characterList;
+    }
 
     public static String getUserPasswordHash(String email, String rawPassword) {
         // Get byte array for input bytes
@@ -65,4 +74,11 @@ public class User {
         return hashStringBuilder.toString();
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public List<String> getCharacterList() {
+        return characterList;
+    }
 }

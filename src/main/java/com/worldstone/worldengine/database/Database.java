@@ -41,7 +41,7 @@ public class Database {
         return new Gson().fromJson(results.getString("character_list"), List.class);
     }
 
-    public PlayerCharacter loadPlayerCharacter(String displayName) throws Exception {
+    public PlayerCharacter loadPlayerCharacter(User user, String displayName) throws Exception {
         Connection connection = DriverManager.getConnection(this.jdbcURL, this.username, this.password);
         connection.setAutoCommit(false);
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM characters WHERE display_name = ?;");
@@ -52,7 +52,7 @@ public class Database {
         }
         connection.close();
 
-        PlayerCharacter playerCharacter = new PlayerCharacter(displayName);
+        PlayerCharacter playerCharacter = new PlayerCharacter(user, displayName);
         results.getString("display_name");
         results.getString("inventory");
         results.getString("area");
