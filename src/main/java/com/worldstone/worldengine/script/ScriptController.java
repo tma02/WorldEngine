@@ -11,7 +11,7 @@ import java.io.FileReader;
 
 public class ScriptController {
 
-    public static ScriptEngineManager SCRIPT_ENGINE_MANAGER = new ScriptEngineManager();
+    public static final ScriptEngineManager SCRIPT_ENGINE_MANAGER = new ScriptEngineManager();
 
     public static void runScripts(File scriptDir) {
         for (final File fileEntry : scriptDir.listFiles()) {

@@ -6,6 +6,8 @@ public class Config {
 
     private Map<String, Object> database;
 
+    private String hashSalt;
+
     /**
      * Servers WorldEngine will try to launch with the specified type.
      * 1 is launch, 0 is do not launch
@@ -25,6 +27,10 @@ public class Config {
 
     public Map<String, Object> getDatabase() {
         return this.database;
+    }
+
+    public String getHashSalt() {
+        return hashSalt;
     }
 
     public int getType() {

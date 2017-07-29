@@ -28,24 +28,28 @@ public class Database {
         }
     }
 
-    public List<String> loadCharacterList(String username) throws SQLException {
+    public List<String> loadCharacterList(String email) throws Exception {
         Connection connection = DriverManager.getConnection(this.jdbcURL, this.username, this.password);
         connection.setAutoCommit(false);
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM `users` WHERE 'username' = ?;");
-        statement.setString(1, username);
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE email = ?;");
+        statement.setString(1, email);
         ResultSet results = statement.executeQuery();
-        results.first();
+        if (!results.next()) {
+            throw new Exception("User does not exist");
+        }
         connection.close();
         return new Gson().fromJson(results.getString("character_list"), List.class);
     }
 
-    public PlayerCharacter loadPlayerCharacter(String displayName) throws SQLException {
+    public PlayerCharacter loadPlayerCharacter(String displayName) throws Exception {
         Connection connection = DriverManager.getConnection(this.jdbcURL, this.username, this.password);
         connection.setAutoCommit(false);
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM `characters` WHERE 'display_name' = ?;");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM characters WHERE display_name = ?;");
         statement.setString(1, displayName);
         ResultSet results = statement.executeQuery();
-        results.first();
+        if (!results.next()) {
+            throw new Exception("User does not exist");
+        }
         connection.close();
 
         PlayerCharacter playerCharacter = new PlayerCharacter();

@@ -2,6 +2,7 @@ package com.worldstone.worldengine;
 
 import com.google.gson.Gson;
 import com.worldstone.worldengine.database.Database;
+import com.worldstone.worldengine.database.User;
 import com.worldstone.worldengine.game.Game;
 import com.worldstone.worldengine.net.SocketServer;
 import com.worldstone.worldengine.net.listener.LoginListener;
@@ -11,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Map;
 
 public class WorldEngine {
 
@@ -72,6 +72,14 @@ public class WorldEngine {
 
     public Game getGame() {
         return this.game;
+    }
+
+    public Database getDatabase() {
+        return this.database;
+    }
+
+    public Config getConfig() {
+        return this.config;
     }
 
 }
