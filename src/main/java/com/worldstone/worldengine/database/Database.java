@@ -38,6 +38,7 @@ public class Database {
             throw new Exception("User does not exist");
         }
         connection.close();
+
         return new Gson().fromJson(results.getString("character_list"), List.class);
     }
 

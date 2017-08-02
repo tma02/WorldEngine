@@ -46,8 +46,9 @@ public class Game extends Thread {
 
         // Trigger the game tick event
         Map<String, Object> eventAttributes = new HashMap<>();
-        eventAttributes.put("time", System.currentTimeMillis());
         TriggerController.triggerEvent("game_tick", eventAttributes);
+        eventAttributes.put("time", System.currentTimeMillis());
+        TriggerController.triggerEvent("game_combat_tick", eventAttributes);
     }
 
     public void shutdown() {

@@ -1,6 +1,8 @@
 package com.worldstone.worldengine.game.player;
 
 import com.worldstone.worldengine.database.User;
+import com.worldstone.worldengine.game.combat.CombatAction;
+import com.worldstone.worldengine.game.combat.CombatParticipant;
 import com.worldstone.worldengine.game.item.ItemContainer;
 import com.worldstone.worldengine.trigger.Trigger;
 import com.worldstone.worldengine.trigger.TriggerController;
@@ -10,7 +12,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PlayerCharacter {
+public class PlayerCharacter extends CombatParticipant {
 
     private ItemContainer inventory;
     private User user;
@@ -22,7 +24,15 @@ public class PlayerCharacter {
     private boolean actionRanThisTick;
     private Trigger tickTrigger;
 
+    /**
+     * Initializes a player and registers a trigger using the user's email
+     * Sets health and maxHealth to -1
+     * Sets area to "nowhere"
+     * @param user User who owns this character
+     * @param displayName
+     */
     public PlayerCharacter(User user, String displayName) {
+        super(-1);
         this.user = user;
         this.displayName = displayName;
         try {
@@ -47,7 +57,7 @@ public class PlayerCharacter {
         TriggerController.registerTrigger(this.tickTrigger);
     }
 
-    public void tick() {
+    private void tick() {
         if (this.nextAction != null) {
             if (this.nextAction.getDelayTicks() <= 0) {
                 this.actionRanThisTick = true;
