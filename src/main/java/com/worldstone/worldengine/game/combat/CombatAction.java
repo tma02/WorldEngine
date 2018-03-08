@@ -39,12 +39,14 @@ public abstract class CombatAction extends PlayerAction {
         final PlayerAction finishAction = new PlayerAction(this.getPlayerCharacter(), this.getFinishDelay()) {
             @Override
             public void run() {
+                this_.phase = Phase.FINISH;
                 this_.end();
             }
         };
         PlayerAction combatAction = new PlayerAction(this.getPlayerCharacter(), this.getPreparationDelay()) {
             @Override
             public void run() {
+                this_.phase = Phase.ACTION;
                 this_.action();
                 this_.getPlayerCharacter().setNextAction(finishAction);
             }

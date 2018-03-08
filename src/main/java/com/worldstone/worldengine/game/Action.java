@@ -1,7 +1,5 @@
 package com.worldstone.worldengine.game;
 
-import com.worldstone.worldengine.game.player.PlayerAction;
-
 public abstract class Action implements Runnable, Comparable<Action> {
 
     private int delayTicks;
