@@ -42,6 +42,9 @@ public class Game extends Thread {
                 this.actionQueue.offer(action);
             }
         }
+        // NOP to prevent concurrent modification
+        assert true;
+
         this.futureActions.removeIf(action -> action.getDelayTicks() <= 0);
 
         // Trigger the game tick event

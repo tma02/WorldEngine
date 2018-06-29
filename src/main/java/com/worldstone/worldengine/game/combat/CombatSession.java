@@ -31,6 +31,7 @@ public class CombatSession {
 
     public void addParticipant(CombatParticipant participant) {
         this.participants.add(participant);
+        //TODO: net stuff to notify
     }
 
     private void tick() {
