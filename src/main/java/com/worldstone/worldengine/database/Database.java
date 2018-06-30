@@ -30,6 +30,7 @@ public class Database {
     }
 
     public User loadUser(String email) throws Exception {
+        // TODO: load user from DB
         return new User(email, this.loadCharacterList(email));
     }
 
