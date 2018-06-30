@@ -36,14 +36,13 @@ public class Game extends Thread {
 
         // Populate action queue with actions
         this.futureActions.removeIf(Objects::isNull);
-        for (Action action : this.futureActions) {
-            action.tick();
+        Iterator<Action> futureActionsIter = this.futureActions.iterator();
+        while (futureActionsIter.hasNext()) {
+            Action action = futureActionsIter.next();
             if (action.getDelayTicks() <= 0) {
                 this.actionQueue.offer(action);
             }
         }
-        // NOP to prevent concurrent modification
-        assert true;
 
         this.futureActions.removeIf(action -> action.getDelayTicks() <= 0);
 
