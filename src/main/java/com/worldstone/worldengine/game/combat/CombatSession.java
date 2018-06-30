@@ -63,4 +63,12 @@ public class CombatSession {
         // TODO: net
     }
 
+    public int getTeamTurn() {
+        return teamTurn;
+    }
+
+    public CombatTeam getActiveTeam() {
+        return this.teamTurnOrder[this.teamTurn];
+    }
+
 }

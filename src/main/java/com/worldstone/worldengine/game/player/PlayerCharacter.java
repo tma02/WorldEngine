@@ -110,6 +110,7 @@ public class PlayerCharacter extends CombatParticipant {
     }
 
     public int getCombatPriority() {
+        // TODO: priority algorithm
         return this.skillExpMap.get("dexterity");
     }
 
