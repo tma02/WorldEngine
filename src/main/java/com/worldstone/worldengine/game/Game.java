@@ -35,16 +35,14 @@ public class Game extends Thread {
         }
 
         // Populate action queue with actions
-        this.futureActions.removeIf(Objects::isNull);
         Iterator<Action> futureActionsIter = this.futureActions.iterator();
         while (futureActionsIter.hasNext()) {
             Action action = futureActionsIter.next();
             if (action.getDelayTicks() <= 0) {
                 this.actionQueue.offer(action);
+                futureActionsIter.remove();
             }
         }
-
-        this.futureActions.removeIf(action -> action.getDelayTicks() <= 0);
 
         // Trigger the game tick event
         Map<String, Object> eventAttributes = new HashMap<>();

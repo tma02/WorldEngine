@@ -24,7 +24,7 @@ public class TickrateTest {
                 this_.ticksRan++;
             }
         });
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             TriggerController.registerTrigger(new Trigger("test_trigger" + i, "game_tick") {
                 @Override
                 public void resolve(Map<String, Object> attributes) {

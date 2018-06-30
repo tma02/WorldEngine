@@ -61,7 +61,8 @@ public class TriggerController {
         if (TriggerController.TRIGGER_MAP.containsKey(eventName)) {
             List<Trigger> eventTriggers = TriggerController.TRIGGER_MAP.get(eventName);
             for (Trigger trigger : eventTriggers) {
-                new Thread(() -> trigger.onTrigger(attributes)).start();
+                //new Thread(() -> trigger.onTrigger(attributes)).start();
+                trigger.onTrigger(attributes);
             }
         }
         else {
