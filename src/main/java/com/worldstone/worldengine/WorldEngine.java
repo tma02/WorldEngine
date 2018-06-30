@@ -2,9 +2,9 @@ package com.worldstone.worldengine;
 
 import com.google.gson.Gson;
 import com.worldstone.worldengine.database.Database;
-import com.worldstone.worldengine.database.User;
 import com.worldstone.worldengine.game.Game;
 import com.worldstone.worldengine.net.SocketServer;
+import com.worldstone.worldengine.net.listener.UserSocketIOListener;
 import com.worldstone.worldengine.net.listener.LoginListener;
 import com.worldstone.worldengine.script.ScriptController;
 import org.slf4j.LoggerFactory;

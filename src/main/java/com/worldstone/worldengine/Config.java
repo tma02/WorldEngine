@@ -36,4 +36,5 @@ public class Config {
     public int getType() {
         return type;
     }
+
 }

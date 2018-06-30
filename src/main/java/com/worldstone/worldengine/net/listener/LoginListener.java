@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LoginListener implements SocketIOListener {
+public class LoginListener extends UserSocketIOListener {
 
     private Map<String, PacketAction> packetActions = new HashMap<>();
 
@@ -53,14 +53,26 @@ public class LoginListener implements SocketIOListener {
     }
 
     public void registerPacketActions() {
+        LoginListener _this = this;
+
         PacketAction loginPacketAction = new PacketAction("login") {
             @Override
             public void run(Session session, Map<String, String> attributes) {
                 String email = attributes.get("email");
                 String password = attributes.get("password");
+                // TODO
             }
         };
         this.registerPacketAction(loginPacketAction);
+
+        PacketAction retrieveCharactersPacketAction = new PacketAction("retrieve_characters") {
+            @Override
+            public void run(Session session, Map<String, String> attributes) {
+                _this.getUser(session.getSessionId()).getCharacterList();
+                // TODO
+            }
+        };
+        this.registerPacketAction(retrieveCharactersPacketAction);
     }
 
 }
