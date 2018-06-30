@@ -4,19 +4,16 @@ import com.worldstone.worldengine.game.npc.CombatNPC;
 import com.worldstone.worldengine.trigger.Trigger;
 import com.worldstone.worldengine.trigger.TriggerController;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class CombatSession {
 
-    private List<CombatParticipant> participants;
+    private Map<UUID, CombatTeam> teams;
     private UUID uuid;
     private Trigger tickTrigger;
 
     public CombatSession() {
-        this.participants = new ArrayList<>();
+        this.teams = new HashMap<>();
         this.uuid = UUID.randomUUID();
 
         final CombatSession this_ = this;
@@ -29,17 +26,18 @@ public class CombatSession {
         TriggerController.registerTrigger(this.tickTrigger);
     }
 
-    public void addParticipant(CombatParticipant participant) {
-        this.participants.add(participant);
+    public void addTeam(CombatTeam team) {
+        this.teams.put(team.getUuid(), team);
+    }
+
+    public void addParticipant(CombatTeam team, CombatParticipant participant) {
+        this.teams.get(team.getUuid()).add(participant);
         //TODO: net stuff to notify
     }
 
     private void tick() {
-        for (CombatParticipant participant : this.participants) {
-            if (participant instanceof CombatNPC) {
-                ((CombatNPC) participant).tickCombat();
-            }
-            participant.stateCheck();
+        for (CombatTeam team : this.teams.values()) {
+            team.tick();
         }
     }
 
