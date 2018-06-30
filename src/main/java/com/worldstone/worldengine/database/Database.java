@@ -1,6 +1,7 @@
 package com.worldstone.worldengine.database;
 
 import com.google.gson.Gson;
+import com.worldstone.worldengine.game.item.Item;
 import com.worldstone.worldengine.game.player.PlayerCharacter;
 
 import java.sql.*;
@@ -28,6 +29,10 @@ public class Database {
         }
     }
 
+    public User loadUser(String email) throws Exception {
+        return new User(email, this.loadCharacterList(email));
+    }
+
     public List<String> loadCharacterList(String email) throws Exception {
         Connection connection = DriverManager.getConnection(this.jdbcURL, this.username, this.password);
         connection.setAutoCommit(false);
@@ -45,8 +50,9 @@ public class Database {
     public PlayerCharacter loadPlayerCharacter(User user, String displayName) throws Exception {
         Connection connection = DriverManager.getConnection(this.jdbcURL, this.username, this.password);
         connection.setAutoCommit(false);
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM characters WHERE display_name = ?;");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM characters WHERE display_name = ? AND email = ?;");
         statement.setString(1, displayName);
+        statement.setString(2, user.getEmail());
         ResultSet results = statement.executeQuery();
         if (!results.next()) {
             throw new Exception("User does not exist");
@@ -54,10 +60,19 @@ public class Database {
         connection.close();
 
         PlayerCharacter playerCharacter = new PlayerCharacter(user, displayName);
-        results.getString("display_name");
-        results.getString("inventory");
-        results.getString("area");
-        results.getString("skill_exp_map");
+
+        String invStr = results.getString("inventory");
+        List<String> items = new Gson().fromJson(invStr, List.class);
+        Gson itemGson = new Gson();
+        for (String itemStr : items) {
+            Item item = itemGson.fromJson(itemStr, Item.class);
+            playerCharacter.getInventory().add(item);
+        }
+
+        String areaStr = results.getString("area");
+        playerCharacter.setArea(areaStr);
+
+        String skillExpMapStr = results.getString("skill_exp_map");
         return playerCharacter;
     }
 

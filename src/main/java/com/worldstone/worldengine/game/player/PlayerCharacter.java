@@ -76,6 +76,10 @@ public class PlayerCharacter extends CombatParticipant {
         TriggerController.unregisterTrigger(this.tickTrigger);
     }
 
+    public void setArea(String area) {
+        this.area = area;
+    }
+
     public String getArea() {
         return this.area;
     }
@@ -99,6 +103,10 @@ public class PlayerCharacter extends CombatParticipant {
     public void setNextAction(PlayerAction nextAction) {
         this.nextAction = nextAction;
         this.actionRanThisTick = false;
+    }
+
+    public ItemContainer getInventory() {
+        return this.inventory;
     }
 
 }

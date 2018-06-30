@@ -32,7 +32,7 @@ public class WorldEngine {
     }
 
     public WorldEngine(File configFile) {
-        LoggerFactory.getLogger(this.getClass()).info("WorldEngine " + getClass().getPackage().getImplementationVersion());
+        LoggerFactory.getLogger(this.getClass()).info("WorldEngine Version: " + getClass().getPackage().getImplementationVersion());
         LoggerFactory.getLogger(this.getClass()).info("Reading config: " + configFile.getName());
         try {
             this.config = new Gson().fromJson(new FileReader(configFile), Config.class);

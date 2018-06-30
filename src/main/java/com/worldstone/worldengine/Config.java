@@ -11,7 +11,7 @@ public class Config {
     /**
      * Servers WorldEngine will try to launch with the specified type.
      * 1 is launch, 0 is do not launch
-     *           Login Game  Control
+     *            Login Game Control
      *    +------+-----+-----+-----+
      *    |  7   |  1  |  1  |  1  |
      *    |  6   |  1  |  1  |  0  |

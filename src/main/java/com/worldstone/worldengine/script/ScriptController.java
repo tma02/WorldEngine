@@ -17,7 +17,8 @@ public class ScriptController {
         for (final File fileEntry : scriptDir.listFiles()) {
             if (fileEntry.isDirectory()) {
                 ScriptController.runScripts(fileEntry);
-            } else {
+            }
+            else {
                 if (!fileEntry.getName().startsWith("_") && fileEntry.getName().endsWith(".js")) {
                     LoggerFactory.getLogger(ScriptController.class).info("Running #" + fileEntry.getName());
                     try {
