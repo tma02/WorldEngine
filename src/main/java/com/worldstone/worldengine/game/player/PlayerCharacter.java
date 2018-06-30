@@ -109,4 +109,8 @@ public class PlayerCharacter extends CombatParticipant {
         return this.inventory;
     }
 
+    public int getCombatPriority() {
+        return this.skillExpMap.get("dexterity");
+    }
+
 }

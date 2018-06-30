@@ -3,7 +3,7 @@ package com.worldstone.worldengine.game.combat;
 import com.worldstone.worldengine.game.GameCharacter;
 import com.worldstone.worldengine.trigger.TriggerController;
 
-public class CombatParticipant extends GameCharacter {
+public abstract class CombatParticipant extends GameCharacter {
 
     private int health;
     private int maxHealth;
@@ -46,6 +46,8 @@ public class CombatParticipant extends GameCharacter {
     public void hit(int damage) {
         this.health -= damage;
     }
+
+    public abstract int getCombatPriority();
 
     void stateCheck() {
         if (this.health <= 0) {
