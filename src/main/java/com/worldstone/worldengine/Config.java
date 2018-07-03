@@ -25,16 +25,24 @@ public class Config {
      */
     private int type;
 
+    /**
+     * [0] login, [1] game, [2] control
+     */
+    private int[] ports;
+
     public Map<String, Object> getDatabase() {
         return this.database;
     }
 
     public String getHashSalt() {
-        return hashSalt;
+        return this.hashSalt;
     }
 
     public int getType() {
-        return type;
+        return this.type;
     }
 
+    public int[] getPorts() {
+        return this.ports;
+    }
 }

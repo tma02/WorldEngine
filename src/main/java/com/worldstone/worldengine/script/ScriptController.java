@@ -24,6 +24,7 @@ public class ScriptController {
                     try {
                         ScriptController.SCRIPT_ENGINE_MANAGER.getEngineByName("nashorn").eval(new FileReader(fileEntry));
                     } catch (ScriptException | FileNotFoundException e) {
+                        LoggerFactory.getLogger(ScriptController.class).error("Exception trying to eval script #" + fileEntry.getName());
                         e.printStackTrace();
                     }
                 }

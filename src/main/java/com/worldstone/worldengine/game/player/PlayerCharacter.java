@@ -114,4 +114,7 @@ public class PlayerCharacter extends CombatParticipant {
         return this.skillExpMap.get("dexterity");
     }
 
+    public String getEncodedDisplayName() {
+        return encodedDisplayName;
+    }
 }

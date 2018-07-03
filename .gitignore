@@ -14,3 +14,6 @@ buildNumber.properties
 
 # Local WorldEngine scripts
 scripts/
+
+# Local WorldEngine config
+config.json

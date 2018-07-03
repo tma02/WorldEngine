@@ -7,6 +7,7 @@ import com.worldstone.worldengine.net.SocketServer;
 import com.worldstone.worldengine.net.listener.UserSocketIOListener;
 import com.worldstone.worldengine.net.listener.LoginListener;
 import com.worldstone.worldengine.script.ScriptController;
+import com.worldstone.worldengine.trigger.TriggerController;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
@@ -44,7 +45,7 @@ public class WorldEngine {
         this.game = new Game();
 
         LoginListener loginListener = new LoginListener();
-        this.loginServer = new SocketServer(5000, loginListener);
+        this.loginServer = new SocketServer(this.getConfig().getPorts()[0], loginListener);
     }
 
     public void init() {
@@ -68,6 +69,8 @@ public class WorldEngine {
         LoggerFactory.getLogger(this.getClass()).info("Starting Login server...");
         ((LoginListener) this.loginServer.getListener()).registerPacketActions();
         this.loginServer.start();
+
+        TriggerController.triggerEvent("post_init");
     }
 
     public Game getGame() {
