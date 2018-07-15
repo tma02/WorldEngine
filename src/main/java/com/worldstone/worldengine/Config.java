@@ -1,5 +1,6 @@
 package com.worldstone.worldengine;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Config {
@@ -30,6 +31,18 @@ public class Config {
      */
     private int[] ports;
 
+    public Config() {
+        this.database = new HashMap<>();
+        this.database.put("host", "localhost");
+        this.database.put("port", 3306);
+        this.database.put("database", "database");
+        this.database.put("username", "");
+        this.database.put("password", "");
+        this.hashSalt = "";
+        this.type = 0;
+        this.ports = new int[0];
+    }
+
     public Map<String, Object> getDatabase() {
         return this.database;
     }
@@ -45,4 +58,6 @@ public class Config {
     public int[] getPorts() {
         return this.ports;
     }
+
+
 }
