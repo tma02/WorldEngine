@@ -34,7 +34,7 @@ public class Config {
     public Config() {
         this.database = new HashMap<>();
         this.database.put("host", "localhost");
-        this.database.put("port", 3306);
+        this.database.put("port", 5432);
         this.database.put("database", "database");
         this.database.put("username", "");
         this.database.put("password", "");

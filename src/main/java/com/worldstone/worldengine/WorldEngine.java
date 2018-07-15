@@ -53,10 +53,6 @@ public class WorldEngine {
             }
             System.exit(1);
         }
-        this.game = new Game();
-
-        LoginListener loginListener = new LoginListener();
-        this.loginServer = new SocketServer(this.getConfig().getPorts()[0], loginListener);
     }
 
     public void init() {
@@ -74,12 +70,29 @@ public class WorldEngine {
         LoggerFactory.getLogger(this.getClass()).info("Running scripts...");
         ScriptController.runScripts(new File("scripts/"));
 
-        LoggerFactory.getLogger(this.getClass()).info("Starting game thread...");
-        this.game.start();
+        int type = config.getType();
 
-        LoggerFactory.getLogger(this.getClass()).info("Starting Login server...");
-        ((LoginListener) this.loginServer.getListener()).registerPacketActions();
-        this.loginServer.start();
+        if ((type & 4) == 4) {
+            LoggerFactory.getLogger(this.getClass()).info("Starting game thread...");
+            this.game = new Game();
+            this.game.start();
+            LoggerFactory.getLogger(this.getClass()).info("Starting game server...");
+            // TODO: start game server
+        }
+        if ((type & 2) == 2) {
+            LoggerFactory.getLogger(this.getClass()).info("Starting login server...");
+            LoginListener loginListener = new LoginListener();
+            this.loginServer = new SocketServer(this.getConfig().getPorts()[0], loginListener);
+            ((LoginListener) this.loginServer.getListener()).registerPacketActions();
+            this.loginServer.start();
+        }
+        if ((type & 1) == 1) {
+            LoggerFactory.getLogger(this.getClass()).info("Starting control server...");
+            // TODO: start control server
+        }
+        if (type == 0) {
+            LoggerFactory.getLogger(this.getClass()).info("No servers configured to start (type = 0)!");
+        }
 
         TriggerController.triggerEvent("post_init");
     }
