@@ -1,7 +1,6 @@
 package com.worldstone.worldengine.game.player;
 
 import com.worldstone.worldengine.database.User;
-import com.worldstone.worldengine.game.combat.CombatAction;
 import com.worldstone.worldengine.game.combat.CombatParticipant;
 import com.worldstone.worldengine.game.item.ItemContainer;
 import com.worldstone.worldengine.trigger.Trigger;

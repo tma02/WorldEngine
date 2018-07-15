@@ -1,8 +1,5 @@
 package com.worldstone.worldengine.game.player;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Skill {
 
     private String name;

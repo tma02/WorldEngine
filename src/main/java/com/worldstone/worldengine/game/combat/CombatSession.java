@@ -1,6 +1,5 @@
 package com.worldstone.worldengine.game.combat;
 
-import com.worldstone.worldengine.game.npc.CombatNPC;
 import com.worldstone.worldengine.trigger.Trigger;
 import com.worldstone.worldengine.trigger.TriggerController;
 

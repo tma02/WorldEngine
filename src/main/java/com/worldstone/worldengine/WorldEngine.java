@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.worldstone.worldengine.database.Database;
 import com.worldstone.worldengine.game.Game;
 import com.worldstone.worldengine.net.SocketServer;
-import com.worldstone.worldengine.net.listener.UserSocketIOListener;
 import com.worldstone.worldengine.net.listener.LoginListener;
 import com.worldstone.worldengine.script.ScriptController;
 import com.worldstone.worldengine.trigger.TriggerController;

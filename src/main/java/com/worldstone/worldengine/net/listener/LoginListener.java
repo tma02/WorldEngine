@@ -4,15 +4,11 @@ import com.google.gson.Gson;
 import com.worldstone.worldengine.net.packet.Packet;
 import com.worldstone.worldengine.net.packet.PacketAction;
 import io.netty.buffer.ByteBuf;
-import io.netty.util.CharsetUtil;
 import io.scalecube.socketio.Session;
-import io.scalecube.socketio.SocketIOListener;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class LoginListener extends UserSocketIOListener {
