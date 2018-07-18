@@ -9,23 +9,19 @@ public class ItemFactory {
 
     private static Map<String, Map<String, Object>> ITEM_ATTRIBUTE_PRESETS = new HashMap<>();
 
-    public enum ItemType {
-        BORING,
-        WEARABLE,
-        CONSUMABLE
-    }
-
     /**
      * Gets a new Item with the specified type.
      * All items have 'name', 'display_name', 'description', 'type', and 'can_trade'
      * WEARABLE and CONSUMABLE have 'max_durability', and 'durability'
+     * WEARABLE has 'slot'
      * @param type
      * @return Item with proper attributes for its type
      */
-    public static Item getItem(ItemType type) {
+    public static Item getItem(Item.ItemType type) {
         Item item = new Item();
         switch (type) {
             case WEARABLE:
+                item.getAttributes().put("slot", Item.ItemSlot.NONE.name());
             case CONSUMABLE:
                 item.getAttributes().put("max_durability", 0);
                 item.getAttributes().put("durability", 0);
@@ -47,7 +43,7 @@ public class ItemFactory {
      * @param presetName Item preset name
      * @return Item with overwritten attributes
      */
-    public static Item getItem(ItemType type, String presetName) {
+    public static Item getItem(Item.ItemType type, String presetName) {
         Item item = ItemFactory.getItem(type);
         if (ItemFactory.ITEM_ATTRIBUTE_PRESETS.containsKey(presetName)) {
             Map<String, Object> preset = ItemFactory.ITEM_ATTRIBUTE_PRESETS.get(presetName);

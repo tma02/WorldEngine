@@ -22,4 +22,25 @@ public class Item {
         return this.uuid;
     }
 
+    public enum ItemType {
+        BORING,
+        WEARABLE,
+        CONSUMABLE
+    }
+
+    public enum ItemSlot {
+        NONE,
+        HEAD,
+        NECK,
+        BACK,
+        BODY,
+        LEFT_HAND,
+        RIGHT_HAND,
+        RING,
+        GLOVES,
+        BELT,
+        LEGS,
+        FEET
+    }
+
 }

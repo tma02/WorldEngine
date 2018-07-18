@@ -14,7 +14,7 @@ public class ItemAttributePresetTest {
         testAttributePreset.put("test_attribute", "test_value");
         ItemFactory.registerPreset("test_item_preset", testAttributePreset);
 
-        Item testItem = ItemFactory.getItem(ItemFactory.ItemType.BORING, "test_item_preset");
+        Item testItem = ItemFactory.getItem(Item.ItemType.BORING, "test_item_preset");
         Assert.assertEquals(testItem.getAttributes().get("test_attribute"), "test_value");
     }
 
