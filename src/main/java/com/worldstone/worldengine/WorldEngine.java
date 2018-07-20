@@ -108,4 +108,8 @@ public class WorldEngine {
         return this.config;
     }
 
+    public LoginListener getLoginListener() {
+        return ((LoginListener) this.loginServer.getListener());
+    }
+
 }
