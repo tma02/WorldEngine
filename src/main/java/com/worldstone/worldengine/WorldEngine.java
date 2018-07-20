@@ -46,7 +46,7 @@ public class WorldEngine {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(configFile));
                 writer.write(configJson);
                 writer.close();
-                LoggerFactory.getLogger(this.getClass()).info("Please edit config.json then restart server!");
+                LoggerFactory.getLogger(this.getClass()).info("Please edit config.json and restart server!");
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

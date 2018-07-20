@@ -30,8 +30,16 @@ public class Database {
     }
 
     public User loadUser(String email) throws Exception {
-        // TODO: load user from DB
-        return new User(email, this.loadCharacterList(email));
+        Connection connection = DriverManager.getConnection(this.jdbcURL, this.username, this.password);
+        connection.setAutoCommit(false);
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE email = ?;");
+        statement.setString(1, email);
+        ResultSet results = statement.executeQuery();
+        if (!results.next()) {
+            throw new Exception("User does not exist");
+        }
+        connection.close();
+        return new User(email, results.getString("password"), this.loadCharacterList(email));
     }
 
     public List<String> loadCharacterList(String email) throws Exception {

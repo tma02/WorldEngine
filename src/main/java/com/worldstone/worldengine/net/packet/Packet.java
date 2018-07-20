@@ -3,6 +3,8 @@ package com.worldstone.worldengine.net.packet;
 import com.google.gson.Gson;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
+import io.netty.buffer.ByteBufOutputStream;
+import io.netty.buffer.Unpooled;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -36,6 +38,14 @@ public class Packet {
 
     public Map<String, String> getAttributes() {
         return this.attributes;
+    }
+
+    public ByteBuf asByteBuf() throws IOException {
+        Gson gson = new Gson();
+        ByteBufOutputStream stream = new ByteBufOutputStream(Unpooled.buffer(128));
+        stream.writeUTF(gson.toJson(this));
+        stream.close();
+        return stream.buffer();
     }
 
 }

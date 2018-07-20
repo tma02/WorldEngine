@@ -10,10 +10,12 @@ import java.util.List;
 public class User {
 
     private String email;
+    private String hashPassword;
     private List<String> characterList;
 
-    public User(String email, List<String> characterList) {
+    public User(String email, String hashPassword, List<String> characterList) {
         this.email = email;
+        this.hashPassword = hashPassword;
         this.characterList = characterList;
     }
 
@@ -78,7 +80,12 @@ public class User {
         return email;
     }
 
+    public String getHashPassword() {
+        return this.hashPassword;
+    }
+
     public List<String> getCharacterList() {
         return characterList;
     }
+
 }
