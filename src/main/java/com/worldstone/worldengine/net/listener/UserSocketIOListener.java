@@ -1,12 +1,11 @@
 package com.worldstone.worldengine.net.listener;
 
 import com.worldstone.worldengine.database.User;
-import io.scalecube.socketio.SocketIOListener;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class UserSocketIOListener implements SocketIOListener {
+public abstract class UserSocketIOListener extends PacketSocketIOListener {
 
     private Map<String, User> sessionUserMap;
 
