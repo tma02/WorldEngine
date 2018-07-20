@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PacketSocketIOListener implements SocketIOListener {
+public abstract class PacketSocketIOListener implements SocketIOListener {
 
     private Map<String, PacketAction> packetActions = new HashMap<>();
 
@@ -51,5 +51,7 @@ public class PacketSocketIOListener implements SocketIOListener {
         this.packetActions.put(packetAction.getPacketName(), packetAction);
         LoggerFactory.getLogger(this.getClass()).info("Registered PacketAction for #" + packetAction.getPacketName() + ".");
     }
+
+    public abstract void registerPacketActions();
 
 }

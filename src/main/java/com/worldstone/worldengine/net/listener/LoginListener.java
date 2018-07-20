@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class LoginListener extends UserSocketIOListener {
 
+    @Override
     public void registerPacketActions() {
         LoginListener _this = this;
 

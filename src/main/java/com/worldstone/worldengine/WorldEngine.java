@@ -82,7 +82,6 @@ public class WorldEngine {
             LoggerFactory.getLogger(this.getClass()).info("Starting login server...");
             LoginListener loginListener = new LoginListener();
             this.loginServer = new SocketServer(this.getConfig().getPorts()[0], loginListener);
-            ((LoginListener) this.loginServer.getListener()).registerPacketActions();
             this.loginServer.start();
         }
         if ((type & 1) == 1) {
