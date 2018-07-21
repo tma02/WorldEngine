@@ -26,7 +26,7 @@ public class LoginListenerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        WorldEngine.INSTANCE.getLoginListener().onMessage(new Session() {
+        WorldEngine.INSTANCE.getServerMap().get("login").getListener().onMessage(new Session() {
             @Override
             public String getSessionId() {
                 return "0";
@@ -72,7 +72,7 @@ public class LoginListenerTest {
                 ByteBufInputStream stream = new ByteBufInputStream(byteBuf);
                 try {
                     String packetString = stream.readUTF();
-                    System.out.println(packetString);
+                    LoggerFactory.getLogger(this.getClass()).info(packetString);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

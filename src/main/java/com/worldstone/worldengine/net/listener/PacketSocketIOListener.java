@@ -31,6 +31,9 @@ public abstract class PacketSocketIOListener implements SocketIOListener {
             if (this.packetActions.containsKey(packet.getName())) {
                 this.packetActions.get(packet.getName()).run(session, packet.getAttributes());
             }
+            else {
+                LoggerFactory.getLogger(this.getClass()).warn("No packet action registered for packet #" + packet.getName());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

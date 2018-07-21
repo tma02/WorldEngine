@@ -24,16 +24,21 @@ public class ScriptController {
                 }
                 else {
                     if (!fileEntry.getName().startsWith("_") && fileEntry.getName().endsWith(".js")) {
-                        LoggerFactory.getLogger(ScriptController.class).info("Running #" + fileEntry.getName());
-                        try {
-                            ScriptController.SCRIPT_ENGINE_MANAGER.getEngineByName("nashorn").eval(new FileReader(fileEntry));
-                        } catch (ScriptException | FileNotFoundException e) {
-                            LoggerFactory.getLogger(ScriptController.class).error("Exception trying to eval script #" + fileEntry.getName());
-                            e.printStackTrace();
-                        }
+                        ScriptController.evalScript(fileEntry);
                     }
                 }
             }
+        }
+    }
+
+    public static Object evalScript(File fileEntry) {
+        try {
+            LoggerFactory.getLogger(ScriptController.class).info("Running #" + fileEntry.getName());
+            return ScriptController.SCRIPT_ENGINE_MANAGER.getEngineByName("nashorn").eval(new FileReader(fileEntry));
+        } catch (ScriptException | FileNotFoundException e) {
+            LoggerFactory.getLogger(ScriptController.class).error("Exception trying to eval script #" + fileEntry.getName());
+            e.printStackTrace();
+            return null;
         }
     }
 

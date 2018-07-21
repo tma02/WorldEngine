@@ -6,11 +6,14 @@ import com.worldstone.worldengine.database.Database;
 import com.worldstone.worldengine.game.Game;
 import com.worldstone.worldengine.net.SocketServer;
 import com.worldstone.worldengine.net.listener.LoginListener;
+import com.worldstone.worldengine.net.listener.PacketSocketIOListener;
 import com.worldstone.worldengine.script.ScriptController;
 import com.worldstone.worldengine.trigger.TriggerController;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WorldEngine {
 
@@ -19,7 +22,7 @@ public class WorldEngine {
     private Config config;
     private Game game;
     private Database database;
-    private SocketServer loginServer;
+    private Map<String, SocketServer> serverMap;
 
     public static void main(String[] args) {
         String configPath = "config.json";
@@ -52,6 +55,7 @@ public class WorldEngine {
             }
             System.exit(1);
         }
+        this.serverMap = new HashMap<>();
     }
 
     public void init() {
@@ -69,12 +73,23 @@ public class WorldEngine {
         LoggerFactory.getLogger(this.getClass()).info("Running scripts...");
         ScriptController.runScripts(new File("scripts/"));
 
-        int type = config.getType();
+        LoggerFactory.getLogger(this.getClass()).info("Starting game thread...");
+        this.game = new Game();
+        this.game.start();
 
-        if ((type & 4) == 4) {
-            LoggerFactory.getLogger(this.getClass()).info("Starting game thread...");
-            this.game = new Game();
-            this.game.start();
+        for (Config.ServerConfig serverConfig : this.config.getServers()) {
+            LoggerFactory.getLogger(this.getClass()).info("Starting server #" + serverConfig.getName() + "...");
+            PacketSocketIOListener listener = serverConfig.getListener();
+            if (listener == null) {
+                LoggerFactory.getLogger(this.getClass()).error("Could not start server #" + serverConfig.getName());
+                continue;
+            }
+            SocketServer server = new SocketServer(serverConfig.getPort(), listener);
+            server.start();
+            this.serverMap.put(serverConfig.getName(), server);
+        }
+
+        /*if ((type & 4) == 4) {
             LoggerFactory.getLogger(this.getClass()).info("Starting game server...");
             // TODO: start game server
         }
@@ -90,7 +105,7 @@ public class WorldEngine {
         }
         if (type == 0) {
             LoggerFactory.getLogger(this.getClass()).info("No servers configured to start (type = 0)!");
-        }
+        }*/
 
         TriggerController.triggerEvent("post_init");
     }
@@ -107,8 +122,8 @@ public class WorldEngine {
         return this.config;
     }
 
-    public LoginListener getLoginListener() {
-        return ((LoginListener) this.loginServer.getListener());
+    public Map<String, SocketServer> getServerMap() {
+        return this.serverMap;
     }
 
 }
