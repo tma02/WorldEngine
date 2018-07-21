@@ -15,6 +15,8 @@ public class Config {
 
     private Map<String, Object> controlServer;
 
+    private String scriptsDirectory;
+
     private String hashSalt;
 
     private List<ServerConfig> servers;
@@ -26,11 +28,16 @@ public class Config {
         this.database.put("database", "database");
         this.database.put("username", "");
         this.database.put("password", "");
+
         this.controlServer = new HashMap<>();
         this.controlServer.put("host", "localhost");
         this.controlServer.put("port", 38194);
         this.controlServer.put("key", "");
+
+        this.scriptsDirectory = "scripts/";
+
         this.hashSalt = "";
+
         this.servers = new ArrayList<>();
         this.servers.add(new ServerConfig("login", "com.worldstone.worldengine.net.listener.LoginListener", 38192));
     }
@@ -45,6 +52,14 @@ public class Config {
 
     public List<ServerConfig> getServers() {
         return this.servers;
+    }
+
+    public Map<String, Object> getControlServer() {
+        return this.controlServer;
+    }
+
+    public String getScriptsDirectory() {
+        return this.scriptsDirectory;
     }
 
     public class ServerConfig {

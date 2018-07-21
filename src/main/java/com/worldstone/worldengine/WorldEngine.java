@@ -71,7 +71,7 @@ public class WorldEngine {
         }
 
         LoggerFactory.getLogger(this.getClass()).info("Running scripts...");
-        ScriptController.runScripts(new File("scripts/"));
+        ScriptController.runScripts(new File(this.config.getScriptsDirectory()));
 
         LoggerFactory.getLogger(this.getClass()).info("Starting game thread...");
         this.game = new Game();
