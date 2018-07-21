@@ -89,24 +89,6 @@ public class WorldEngine {
             this.serverMap.put(serverConfig.getName(), server);
         }
 
-        /*if ((type & 4) == 4) {
-            LoggerFactory.getLogger(this.getClass()).info("Starting game server...");
-            // TODO: start game server
-        }
-        if ((type & 2) == 2) {
-            LoggerFactory.getLogger(this.getClass()).info("Starting login server...");
-            LoginListener loginListener = new LoginListener();
-            this.loginServer = new SocketServer(this.getConfig().getPorts()[0], loginListener);
-            this.loginServer.start();
-        }
-        if ((type & 1) == 1) {
-            LoggerFactory.getLogger(this.getClass()).info("Starting control server...");
-            // TODO: start control server
-        }
-        if (type == 0) {
-            LoggerFactory.getLogger(this.getClass()).info("No servers configured to start (type = 0)!");
-        }*/
-
         TriggerController.triggerEvent("post_init");
     }
 
