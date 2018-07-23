@@ -15,6 +15,7 @@ import java.util.Map;
 public abstract class PacketSocketIOListener implements SocketIOListener {
 
     private Map<String, PacketAction> packetActions = new HashMap<>();
+    protected Gson gson = new Gson();
 
     @Override
     public void onConnect(Session session) {
@@ -25,7 +26,7 @@ public abstract class PacketSocketIOListener implements SocketIOListener {
     public void onMessage(Session session, ByteBuf buffer) {
         try {
             Packet packet = new Packet(buffer);
-            String attributesJson = new Gson().toJson(packet.getAttributes());
+            String attributesJson = gson.toJson(packet.getAttributes());
             LoggerFactory.getLogger(this.getClass()).info("RECV: #" + packet.getName() + "%" + attributesJson);
 
             if (this.packetActions.containsKey(packet.getName())) {

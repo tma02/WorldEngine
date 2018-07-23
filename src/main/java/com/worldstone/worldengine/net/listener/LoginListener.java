@@ -49,7 +49,6 @@ public class LoginListener extends UserSocketIOListener {
             @Override
             public void run(Session session, Map<String, String> attributes) {
                 Packet retrieveCharactersResponsePacket = new Packet("retrieve_characters");
-                Gson gson = new Gson();
                 if (_this.isAuthenticated(session.getSessionId())) {
                     List<String> characterList = _this.getUser(session.getSessionId()).getCharacterList();
                     retrieveCharactersResponsePacket.getAttributes().put("response", "success");
