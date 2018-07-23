@@ -1,6 +1,6 @@
 package com.worldstone.worldengine.net.listener;
 
-import com.worldstone.worldengine.net.Interserver;
+import com.worldstone.worldengine.net.ServerInfo;
 import com.worldstone.worldengine.net.packet.Packet;
 import com.worldstone.worldengine.net.packet.PacketAction;
 import io.scalecube.socketio.Session;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class ControlListener extends InterserverSocketIOListener {
 
-    private List<Interserver> serverList;
+    private List<ServerInfo> serverList;
 
     public ControlListener() {
         super();
@@ -41,7 +41,7 @@ public class ControlListener extends InterserverSocketIOListener {
             public void run(Session session, Map<String, String> attributes) {
                 Packet responsePacket = new Packet("retrieve_game_servers");
                 if (_this.isAuthenticated(session.getSessionId())) {
-                    List<Interserver> gameServerList = serverList.stream().filter(s -> s.getType()
+                    List<ServerInfo> gameServerList = serverList.stream().filter(s -> s.getType()
                             .equals("game")).collect(Collectors.toList());
                     responsePacket.getAttributes().put("response", "success");
                     responsePacket.getAttributes().put("game_servers", gson.toJson(gameServerList));

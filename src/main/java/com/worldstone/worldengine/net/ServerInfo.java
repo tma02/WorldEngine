@@ -1,6 +1,6 @@
 package com.worldstone.worldengine.net;
 
-public class Interserver {
+public class ServerInfo {
 
     private String type;
 
@@ -10,7 +10,7 @@ public class Interserver {
 
     private int port;
 
-    public Interserver(String type, String name, String ip, int port) {
+    public ServerInfo(String type, String name, String ip, int port) {
         this.type = type;
         this.name = name;
         this.ip = ip;

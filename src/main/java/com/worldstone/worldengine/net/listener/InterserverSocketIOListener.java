@@ -1,6 +1,6 @@
 package com.worldstone.worldengine.net.listener;
 
-import com.worldstone.worldengine.net.Interserver;
+import com.worldstone.worldengine.net.ServerInfo;
 import io.scalecube.socketio.Session;
 
 import java.util.HashMap;
@@ -8,17 +8,17 @@ import java.util.Map;
 
 public abstract class InterserverSocketIOListener extends PacketSocketIOListener {
 
-    private Map<String, Interserver> sessionServerMap = new HashMap<>();
+    private Map<String, ServerInfo> sessionServerMap = new HashMap<>();
 
     public boolean isAuthenticated(String sessionId) {
         return this.sessionServerMap.containsKey(sessionId) && this.sessionServerMap.get(sessionId) != null;
     }
 
-    public Interserver getInterserver(String sessionId) {
+    public ServerInfo getServerInfo(String sessionId) {
         return this.sessionServerMap.get(sessionId);
     }
 
-    public void authenticateSession(String sessionId, Interserver server) {
+    public void authenticateSession(String sessionId, ServerInfo server) {
         this.sessionServerMap.put(sessionId, server);
     }
 
