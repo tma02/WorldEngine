@@ -3,6 +3,7 @@ package com.worldstone.worldengine.net.listener;
 import com.worldstone.worldengine.net.ServerInfo;
 import io.scalecube.socketio.Session;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +25,10 @@ public abstract class InterserverSocketIOListener extends PacketSocketIOListener
 
     public void deauthenticateSession(String sessionId) {
         this.sessionServerMap.remove(sessionId);
+    }
+
+    public Collection<ServerInfo> getServerInfoCollection() {
+        return this.sessionServerMap.values();
     }
 
     @Override

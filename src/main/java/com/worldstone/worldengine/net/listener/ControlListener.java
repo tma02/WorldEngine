@@ -13,13 +13,6 @@ import java.util.stream.Collectors;
 
 public class ControlListener extends InterserverSocketIOListener {
 
-    private List<ServerInfo> serverList;
-
-    public ControlListener() {
-        super();
-        this.serverList = new ArrayList<>();
-    }
-
     @Override
     public void registerPacketActions() {
         ControlListener _this = this;
@@ -41,7 +34,7 @@ public class ControlListener extends InterserverSocketIOListener {
             public void run(Session session, Map<String, String> attributes) {
                 Packet responsePacket = new Packet("retrieve_game_servers");
                 if (_this.isAuthenticated(session.getSessionId())) {
-                    List<ServerInfo> gameServerList = serverList.stream().filter(s -> s.getType()
+                    List<ServerInfo> gameServerList = _this.getServerInfoCollection().stream().filter(s -> s.getType()
                             .equals("game")).collect(Collectors.toList());
                     responsePacket.getAttributes().put("response", "success");
                     responsePacket.getAttributes().put("game_servers", gson.toJson(gameServerList));
